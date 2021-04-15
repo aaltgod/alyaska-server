@@ -19,7 +19,7 @@ func main() {
 
 		return c.Render("index", fiber.Map{
 			"Title": getRandomString(10),
-			"Some":  getRandomString(22),
+			"Some":  getRandomString(15),
 		})
 	})
 
@@ -28,11 +28,11 @@ func main() {
 
 func getRandomString(strLen int) string {
 
-	var letters = []rune("ABCDEFG123456789")
+	alph := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
 	s := make([]rune, strLen)
 	for i := range s {
-		s[i] = letters[rand.Intn(len(letters))]
+		s[i] = alph[rand.Intn(len(alph))]
 	}
 
 	return string(s)
