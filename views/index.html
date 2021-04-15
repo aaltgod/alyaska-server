@@ -2,5 +2,13 @@
 <body>
     <h1>{{.Title}}</h1>
     <h2>{{.Some}}</h2>
+
+    {{range .Items}}
+        <div class="item">
+            <!-- <h3 class="str1"> {{.Str1}} </h3>
+            <span class="str2"> {{.Str2}} </span> -->
+            <p>{{.}}</p>
+        </div>
+    {{end}}
 </body>
 </html>
