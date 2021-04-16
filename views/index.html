@@ -5,10 +5,15 @@
 
     {{range .Items}}
         <div class="item">
-            <!-- <h3 class="str1"> {{.Str1}} </h3>
-            <span class="str2"> {{.Str2}} </span> -->
-            <p>{{.}}</p>
+            <h3 class="str1"> {{.Str1}} </h3>
+            <span class="str2"> {{.Str2}} </span>
         </div>
     {{end}}
+
+    <form action="/send" method="POST">
+    <input type="text" name="msg">
+    <button type="submit" formmethod="POST">Send</button>
+</form>
+    
 </body>
 </html>
