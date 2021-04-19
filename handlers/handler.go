@@ -16,8 +16,8 @@ type Item struct {
 
 type File struct {
 	Name string
-	Dir  bool
 	Path string
+	Dir  bool
 }
 
 type ViewData struct {
@@ -70,7 +70,13 @@ func GetMain(c *fiber.Ctx) error {
 
 func GetFiles(c *fiber.Ctx) error {
 
-	file, err := os.Open("files/" + c.Params("*"))
+	path := "files/"
+
+	if len(c.Params("*")) > 0 {
+		path += c.Params("*") + "/"
+	}
+
+	file, err := os.Open(path)
 	if err != nil {
 		log.Println(err)
 
@@ -88,11 +94,15 @@ func GetFiles(c *fiber.Ctx) error {
 		vd.Files = append(vd.Files, File{
 			Name: file.Name(),
 			Dir:  file.IsDir(),
-			Path: "files/" + c.Params("*") + "/" + file.Name(),
+			Path: path + file.Name(),
 		})
 	}
 
 	return c.Render("files", fiber.Map{
 		"Files": vd.Files,
 	})
+}
+
+func SendFile(c *fiber.Ctx) error {
+	return fmt.Errorf("s")
 }
