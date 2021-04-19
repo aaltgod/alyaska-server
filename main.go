@@ -19,6 +19,7 @@ func main() {
 	app.Get("/", handlers.GetMain)
 	app.Get("/home/:user?", handlers.GetUserFromURL)
 	app.Get("/random.txt", handlers.GetRandomTXT)
+	app.Get("/files/*", handlers.GetFiles)
 
 	app.Post("/send", handlers.Send)
 

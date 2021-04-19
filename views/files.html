@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<body>
+    {{range .Files}}
+        {{if .Dir}}
+            <p><a href="{{.Path}}">{{.Name}}</a></p>
+        {{else}}
+            <p>{{.Name}}</p>
+        {{end}}
+    {{end}}
+</body>
+</html>
