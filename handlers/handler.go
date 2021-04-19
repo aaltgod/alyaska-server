@@ -88,7 +88,7 @@ func GetFiles(c *fiber.Ctx) error {
 		vd.Files = append(vd.Files, File{
 			Name: file.Name(),
 			Dir:  file.IsDir(),
-			Path: c.Params("*") + "/" + file.Name(),
+			Path: "files/" + c.Params("*") + "/" + file.Name(),
 		})
 	}
 

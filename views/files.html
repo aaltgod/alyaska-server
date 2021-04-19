@@ -2,7 +2,7 @@
 <body>
     {{range .Files}}
         {{if .Dir}}
-            <p><a href="{{.Path}}">{{.Name}}</a></p>
+            <p><a href="/{{.Path}}">{{.Name}}</a></p>
         {{else}}
             <p>{{.Name}}</p>
         {{end}}
