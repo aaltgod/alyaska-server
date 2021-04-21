@@ -106,3 +106,9 @@ func GetFiles(c *fiber.Ctx) error {
 func SendFile(c *fiber.Ctx) error {
 	return fmt.Errorf("s")
 }
+
+func Ex(c *fiber.Ctx) error {
+	return c.Render("ex", fiber.Map{
+		"Result": tools.GetRandomString(12),
+	})
+}

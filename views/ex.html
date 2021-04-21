@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<body>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x"></script>
+</head>
+<p>Your result: <br>{{.Result}}</p>
+
+    <div id="content"></div>
+    <script>
+        new Vue({
+            data: () => ({ message: 'Row' }),
+            template: `
+            <div>
+            <h1>{{message}} your boat</h1>
+            <button v-on:click="message += ' row'">Add</button>
+            </div>
+            `
+        }).$mount('#content');
+    </script>
+
+</body>
+</html>
