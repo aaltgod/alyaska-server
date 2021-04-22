@@ -19,11 +19,15 @@ func main() {
 
 	app.Use(logger.New())
 
+	api := app.Group("/api")
+
+	api.Post("/random_string", handlers.GetRandomResult)
+	api.Get("/ex", handlers.Ex)
+
 	app.Get("/", handlers.GetMain)
 	app.Get("/home/:user?", handlers.GetUserFromURL)
 	app.Get("/random.txt", handlers.GetRandomTXT)
 	app.Get("/files/*", handlers.GetFiles)
-	// app.Get("/download")
 	app.Get("/ex", handlers.Ex)
 
 	app.Post("/send", handlers.Send)

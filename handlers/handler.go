@@ -108,7 +108,20 @@ func SendFile(c *fiber.Ctx) error {
 }
 
 func Ex(c *fiber.Ctx) error {
-	return c.Render("ex", fiber.Map{
-		"Result": tools.GetRandomString(12),
+	c.Response().Header.Add("Content-Type", "application/json; charset=UTF-8")
+	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"ex": tools.GetRandomString(12),
+	})
+}
+
+func GetRandomResult(c *fiber.Ctx) error {
+	c.Response().Header.Add("Content-Type", "application/json; charset=UTF-8")
+	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"success": true,
+		"string":  tools.GetRandomString(10),
 	})
 }

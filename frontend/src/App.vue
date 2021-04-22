@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
     <Main msg="ALYASKA SERVER"/>
   </div>
 </template>
 
 <script>
+
 import Main from './components/Main.vue'
 
 export default {
