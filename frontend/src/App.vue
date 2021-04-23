@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <Main msg="ALYASKA SERVER"/>
+    <h1>Alyaska Server</h1>
+    <router-link to='/'>Home</router-link>
+    <router-link to='/archive'>Arcive</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import Main from './components/Main.vue'
-
 export default {
-  name: 'App',
-  components: {
-    Main
-  }
 }
 </script>
 
