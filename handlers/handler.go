@@ -98,8 +98,13 @@ func GetFiles(c *fiber.Ctx) error {
 		})
 	}
 
-	return c.Render("files", fiber.Map{
-		"Files": vd.Files,
+	log.Println(vd.Files)
+
+	c.Response().Header.Add("Content-Type", "application/json; charset=UTF-8")
+	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"files": vd.Files,
 	})
 }
 

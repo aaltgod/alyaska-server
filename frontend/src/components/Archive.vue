@@ -1,17 +1,17 @@
 <template>
     <div class="archive">
-        <h1>Hi there</h1>
         &nbsp;
-        <p v-on:click="getEx()">
+        <button v-on:click="getFiles()">
             Archive
-        </p>
-        <h1>{{ result }}</h1>
-
-        <!-- <div>
-          <b-button variant="primary" v-on:click="getEx()">Random {{ result }}</b-button>  
+        </button>
+        <div v-for="file in files" v-bind:key="file.Path">
+          <h3 v-if="file.Dir">
+                <a v-on:click="getFiles()"><p>{{ file.Name }} {{ file.Path }}</p></a>
+            </h3>
+          <h3 v-else>
+            {{ file.Name }}
+          </h3>
         </div>
-
-        &nbsp; -->
     <hr>
     </div>
 </template>
@@ -28,7 +28,7 @@ export default {
 
   data: function() {
     return {
-      result: ""
+      files: [],
     }
   },
 
@@ -42,13 +42,13 @@ export default {
       });
     },
 
-    getEx: function() {
-      axios.get("http://127.0.0.1:3000/api/ex", {
+    getFiles: function() {
+      axios.get("http://127.0.0.1:3000/files", {
         headers: {
         }
       })
       .then(response => {
-        this.result = response.data["ex"]
+        this.files = response.data["files"]
       })
       .catch(e => {
         console.error(e)
