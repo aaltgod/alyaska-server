@@ -15,9 +15,9 @@ type Item struct {
 }
 
 type File struct {
-	Name string
-	Path string
-	Dir  bool
+	Name string `json:"name"`
+	Path string `json:"path"`
+	Dir  bool   `json:"dir"`
 }
 
 type ViewData struct {
@@ -69,11 +69,19 @@ func GetMain(c *fiber.Ctx) error {
 }
 
 func GetFiles(c *fiber.Ctx) error {
+	log.Println(c.Request().String())
 
-	path := "files/"
+	f := File{}
 
-	if len(c.Params("*")) > 0 {
-		path += c.Params("*") + "/"
+	if err := c.BodyParser(&f); err != nil {
+		log.Println(err)
+
+		return err
+	}
+
+	path := f.Path
+	if len(path) == 0 {
+		path = "files"
 	}
 
 	file, err := os.Open(path)
@@ -94,14 +102,9 @@ func GetFiles(c *fiber.Ctx) error {
 		vd.Files = append(vd.Files, File{
 			Name: file.Name(),
 			Dir:  file.IsDir(),
-			Path: path + file.Name(),
+			Path: path + "/" + file.Name(),
 		})
 	}
-
-	log.Println(vd.Files)
-
-	c.Response().Header.Add("Content-Type", "application/json; charset=UTF-8")
-	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"files": vd.Files,

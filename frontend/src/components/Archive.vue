@@ -4,18 +4,17 @@
         <button v-on:click="getFiles()">
             Archive
         </button>
-        <div v-for="file in files" v-bind:key="file.Path">
-          <h3 v-if="file.Dir">
-                <a v-on:click="getFiles()"><p>{{ file.Name }} {{ file.Path }}</p></a>
+        <div v-for="file in files" v-bind:key="file.path">
+          <h3 v-if="file.dir">
+                <a v-on:click="getFiles(file.path)"><p> {{ file.name }}/</p></a>
             </h3>
           <h3 v-else>
-            {{ file.Name }}
+            {{ file.name }}
           </h3>
         </div>
     <hr>
     </div>
 </template>
-
 
 
 <script>
@@ -42,13 +41,19 @@ export default {
       });
     },
 
-    getFiles: function() {
-      axios.get("http://127.0.0.1:3000/files", {
-        headers: {
-        }
-      })
+    getFiles: function(filePath) {
+
+      console.log(filePath)
+
+      axios.post(
+        "http://127.0.0.1:3000/api/files",
+          {"path": filePath}
+          )
       .then(response => {
         this.files = response.data["files"]
+        for (var file in this.files) {
+          console.log(this.files[file])
+        }
       })
       .catch(e => {
         console.error(e)
