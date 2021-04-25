@@ -5,6 +5,8 @@
             Archive
         </button>
         <div v-for="file in files" v-bind:key="file.path">
+          <h3> <a v-on:click="getFiles(file.previous_path)"><p> ../ </p></a> </h3>
+
           <h3 v-if="file.dir">
                 <a v-on:click="getFiles(file.path)"><p> {{ file.name }}/</p></a>
             </h3>
@@ -18,6 +20,7 @@
 
 
 <script>
+
 import axios from 'axios'
 
 export default {

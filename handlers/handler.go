@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/alyaskastorm/fiber_example/tools"
 	"github.com/gofiber/fiber/v2"
@@ -15,9 +16,10 @@ type Item struct {
 }
 
 type File struct {
-	Name string `json:"name"`
-	Path string `json:"path"`
-	Dir  bool   `json:"dir"`
+	Name         string `json:"name"`
+	Path         string `json:"path"`
+	PreviousPath string `json:"previous_path"`
+	Dir          bool   `json:"dir"`
 }
 
 type ViewData struct {
@@ -69,7 +71,6 @@ func GetMain(c *fiber.Ctx) error {
 }
 
 func GetFiles(c *fiber.Ctx) error {
-	log.Println(c.Request().String())
 
 	f := File{}
 
@@ -96,13 +97,22 @@ func GetFiles(c *fiber.Ctx) error {
 		log.Println(err)
 	}
 
+	var prevPath string
+
+	p := strings.Split(path, "/")
+	if len(p) > 1 {
+		prevPath = strings.Join(p[:len(p)-1], "/")
+		log.Println(prevPath)
+	}
+
 	vd := new(ViewData)
 
 	for _, file := range dirs {
 		vd.Files = append(vd.Files, File{
-			Name: file.Name(),
-			Dir:  file.IsDir(),
-			Path: path + "/" + file.Name(),
+			Name:         file.Name(),
+			Dir:          file.IsDir(),
+			Path:         path + "/" + file.Name(),
+			PreviousPath: prevPath,
 		})
 	}
 
