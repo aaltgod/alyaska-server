@@ -4,9 +4,10 @@
         <button v-on:click="getFiles()">
             Archive
         </button>
+        <h3 v-if="prevPath">
+           <a v-on:click="getFiles(prevPath)"><p> ../ </p></a> 
+        </h3>
         <div v-for="file in files" v-bind:key="file.path">
-          <h3> <a v-on:click="getFiles(file.previous_path)"><p> ../ </p></a> </h3>
-
           <h3 v-if="file.dir">
                 <a v-on:click="getFiles(file.path)"><p> {{ file.name }}/</p></a>
             </h3>
@@ -24,13 +25,10 @@
 import axios from 'axios'
 
 export default {
-  props: {
-    msg: String
-  },
-
   data: function() {
     return {
       files: [],
+      prevPath: "",
     }
   },
 
@@ -45,18 +43,13 @@ export default {
     },
 
     getFiles: function(filePath) {
-
-      console.log(filePath)
-
       axios.post(
         "http://127.0.0.1:3000/api/files",
           {"path": filePath}
           )
       .then(response => {
         this.files = response.data["files"]
-        for (var file in this.files) {
-          console.log(this.files[file])
-        }
+        this.prevPath = this.files[0]["previous_path"]
       })
       .catch(e => {
         console.error(e)
