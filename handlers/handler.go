@@ -91,6 +91,7 @@ func GetFiles(c *fiber.Ctx) error {
 
 		return err
 	}
+	defer file.Close()
 
 	dirs, err := file.Readdir(-1)
 	if err != nil {
@@ -122,7 +123,16 @@ func GetFiles(c *fiber.Ctx) error {
 }
 
 func SendFile(c *fiber.Ctx) error {
-	return fmt.Errorf("s")
+
+	f := new(File)
+
+	if err := c.BodyParser(f); err != nil {
+		log.Println(err)
+
+		return err
+	}
+
+	return c.Download(f.Path)
 }
 
 func Ex(c *fiber.Ctx) error {

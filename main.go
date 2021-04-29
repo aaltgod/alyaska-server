@@ -26,7 +26,8 @@ func main() {
 
 	api.Post("/random_string", handlers.GetRandomResult)
 	api.Get("/ex", handlers.Ex)
-	api.Post("/files/*", handlers.GetFiles)
+	api.Post("/files", handlers.GetFiles)
+	api.Post("/get-file", handlers.SendFile)
 
 	app.Get("/", handlers.GetMain)
 	app.Get("/home/:user?", handlers.GetUserFromURL)

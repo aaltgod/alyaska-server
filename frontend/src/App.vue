@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <h1>Alyaska Server</h1>
-    <router-link to='/'>Home</router-link>
-    <router-link to='/archive'>Arcive</router-link>
+    <router-link to='/'><p>Home</p></router-link>
+    <router-link to='/archive'><p>Archive</p></router-link>
     <router-view></router-view>
   </div>
 </template>
