@@ -98,6 +98,8 @@ func GetFiles(c *fiber.Ctx) error {
 		log.Println(err)
 	}
 
+	dirs = tools.SortDir(dirs)
+
 	var prevPath string
 
 	p := strings.Split(path, "/")

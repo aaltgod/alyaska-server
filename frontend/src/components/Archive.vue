@@ -12,11 +12,11 @@
                 <a v-on:click="getFilesData(file.path)"><p> {{ file.name }}/</p></a>
             </h3>
           <h3 v-else>
-            {{ file.name }} 
-              <vs-button color="dark" type="gradient" v-on:click="getFile(file.path, file.name)">
-              </vs-button>
+            {{ file.name }}
+             <button v-on:click="getFile(file.path, file.name)">
+               <i class="fas fa-file-download"></i>
+            </button> 
           </h3>
-          
         </div>
     <hr>
     </div>
@@ -26,6 +26,7 @@
 <script>
 
 import axios from 'axios'
+
 
 export default {
   data: function() {
