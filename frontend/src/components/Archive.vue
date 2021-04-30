@@ -2,14 +2,14 @@
     <div class="archive">
         &nbsp;
         <button v-on:click="getFilesData()">
-            Archive
+          Get Archive
         </button>
         <h3 v-if="prevPath">
-           <a v-on:click="getFilesData(prevPath)"><p> ../ </p></a> 
+           <span style="cursor: pointer" v-on:click="getFilesData(prevPath)"><p> ../ </p></span> 
         </h3>
         <div v-for="file in files" v-bind:key="file.path">
           <h3 v-if="file.dir">
-                <a v-on:click="getFilesData(file.path)"><p> {{ file.name }}/</p></a>
+                <span style="cursor: pointer" v-on:click="getFilesData(file.path)">{{ file.name }}/</span>
             </h3>
           <h3 v-else>
             {{ file.name }}
