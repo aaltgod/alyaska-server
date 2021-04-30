@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <h1>Alyaska Server</h1>
-    <router-link to='/'><p>Home</p></router-link>
-    <router-link to='/archive'><p>Archive</p></router-link>
+    <ul>
+      <li><router-link to='/'><h2>Home</h2></router-link></li>
+      <li><router-link to='/archive'><h2>Archive</h2></router-link></li>
     <router-view></router-view>
+    </ul>
   </div>
 </template>
 
@@ -23,3 +25,21 @@ export default {
   margin-top: 60px;
 }
 </style>
+
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
+

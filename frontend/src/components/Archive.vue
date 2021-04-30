@@ -37,9 +37,9 @@ export default {
   },
 
   methods: {
-    getrandomstr: function() {
+    getRandomStr: function() {
       var data = {}
-      axios.post("http://127.0.0.1:3000/api/random_string", data).then(result => {
+      axios.post("http://127.0.0.1:3000/api/random-string", data).then(result => {
         this.result = result.data['ex']
       }).catch( error =>  {
         console.error(error)

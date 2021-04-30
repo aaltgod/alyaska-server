@@ -24,17 +24,9 @@ func main() {
 
 	api := app.Group("/api")
 
-	api.Post("/random_string", handlers.GetRandomResult)
-	api.Get("/ex", handlers.Ex)
+	api.Post("/random-string", handlers.GetRandomResult)
 	api.Post("/files", handlers.GetFiles)
 	api.Post("/get-file", handlers.SendFile)
-
-	app.Get("/", handlers.GetMain)
-	app.Get("/home/:user?", handlers.GetUserFromURL)
-	app.Get("/random.txt", handlers.GetRandomTXT)
-	app.Get("/ex", handlers.Ex)
-
-	app.Post("/send", handlers.Send)
 
 	log.Fatal(app.Listen(":3000"))
 }

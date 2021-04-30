@@ -11,10 +11,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type Item struct {
-	Str1, Str2 string
-}
-
 type File struct {
 	Name         string `json:"name"`
 	Path         string `json:"path"`
@@ -23,7 +19,6 @@ type File struct {
 }
 
 type ViewData struct {
-	Items []Item
 	Files []File
 }
 
@@ -38,35 +33,6 @@ func Send(c *fiber.Ctx) error {
 
 	return c.Render("result", fiber.Map{
 		"Result": result,
-	})
-}
-
-func GetUserFromURL(c *fiber.Ctx) error {
-	return c.Render("user", fiber.Map{
-		"Name": c.Params("user"),
-	})
-}
-
-func GetRandomTXT(c *fiber.Ctx) error {
-	return c.Download("./files/random.txt")
-}
-
-func GetMain(c *fiber.Ctx) error {
-
-	d := new(ViewData)
-	d.Items = []Item{
-		{
-			Str1: tools.GetRandomString(2),
-			Str2: tools.GetRandomString(4)},
-		{
-			Str1: tools.GetRandomString(2),
-			Str2: tools.GetRandomString(4),
-		}}
-
-	return c.Render("index", fiber.Map{
-		"Title": tools.GetRandomString(10),
-		"Some":  tools.GetRandomString(15),
-		"Items": d.Items,
 	})
 }
 
@@ -137,19 +103,7 @@ func SendFile(c *fiber.Ctx) error {
 	return c.Download(f.Path)
 }
 
-func Ex(c *fiber.Ctx) error {
-	c.Response().Header.Add("Content-Type", "application/json; charset=UTF-8")
-	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
-
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"ex": tools.GetRandomString(12),
-	})
-}
-
 func GetRandomResult(c *fiber.Ctx) error {
-	c.Response().Header.Add("Content-Type", "application/json; charset=UTF-8")
-	c.Response().Header.Add("Access-Control-Allow-Origin", "*")
-
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"success": true,
 		"string":  tools.GetRandomString(10),
