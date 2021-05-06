@@ -3,20 +3,15 @@ package main
 import (
 	"log"
 
-	"github.com/alyaskastorm/fiber_example/handlers"
+	handler "github.com/alyaskastorm/fiber_example/handler"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/template/html"
 )
 
 func main() {
 
-	engine := html.New("./views", ".html")
-
-	app := fiber.New(fiber.Config{
-		Views: engine,
-	})
+	app := fiber.New(fiber.Config{})
 
 	app.Use(cors.New())
 
@@ -24,9 +19,10 @@ func main() {
 
 	api := app.Group("/api")
 
-	api.Post("/random-string", handlers.GetRandomResult)
-	api.Post("/files", handlers.GetFiles)
-	api.Post("/get-file", handlers.SendFile)
+	api.Post("/random-string", handler.GetRandomResult)
+	api.Post("/files", handler.GetFiles)
+	api.Post("/get-file", handler.SendFile)
+	api.Post("/upload-file", handler.UploadFile)
 
 	log.Fatal(app.Listen(":3000"))
 }

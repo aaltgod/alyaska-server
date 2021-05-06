@@ -39,7 +39,7 @@ export default {
   methods: {
     getRandomStr: function() {
       var data = {}
-      axios.post("http://127.0.0.1:3000/api/random-string", data).then(result => {
+      axios.post(process.env.VUE_APP_API_URL+"/api/random-string", data).then(result => {
         this.result = result.data['ex']
       }).catch( error =>  {
         console.error(error)
@@ -48,7 +48,7 @@ export default {
 
     getFilesData: function(filePath) {
       axios.post(
-        "http://127.0.0.1:3000/api/files",
+        process.env.VUE_APP_API_URL+"/api/files",
           {"path": filePath}
           )
       .then(response => {
@@ -63,7 +63,7 @@ export default {
     getFile: function(filePath, fileName) {
       axios({
         method: "post",
-        url: "http://127.0.0.1:3000/api/get-file",
+        url: process.env.VUE_APP_API_URL+" /api/get-file",
         responseType: "arraybuffer",
         data: {
           "path": filePath,
