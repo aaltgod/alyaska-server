@@ -95,20 +95,28 @@ func GetRandomResult(c *fiber.Ctx) error {
 
 func UploadFile(c *fiber.Ctx) error {
 
-	file, err := c.FormFile("files")
+	multiForm, err := c.MultipartForm()
 	if err != nil {
 		log.Println(err)
 
 		return err
 	}
 
-	log.Println(
-		file.Filename,
-		"\n",
-		file.Header,
-		"\n",
-		file.Size,
-	)
+	folderName := tools.GetRandomString(10)
+	if err := os.Mkdir("uploads/"+folderName, 0755); err != nil {
+		log.Println(err)
+
+		return err
+	}
+
+	for key, file := range multiForm.File {
+
+		if err := c.SaveFile(file[0], "uploads/"+folderName+"/"+"file"+key); err != nil {
+			log.Println(err)
+
+			return err
+		}
+	}
 
 	return nil
 }
