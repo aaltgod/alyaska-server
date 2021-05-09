@@ -17,16 +17,19 @@
             <div class="large-12 medium-12 small-12 cell">
                 <button v-on:click="submitFile()">Submit</button>
             </div>
+            <h3><a href="">{{ folderName }}</a></h3>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+
     export default {
         data(){
             return {
-                files:[]
+                files:[],
+                folderName: "",
             }
         },
 
@@ -50,8 +53,12 @@ import axios from 'axios'
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     }
-
+                }).then(result =>{
+                    this.folderName = result.data["folderName"]
+                }).catch(e =>{
+                    console.error(e)
                 })
+                
             },
 
             handleFileUpload(){

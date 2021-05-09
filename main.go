@@ -23,6 +23,7 @@ func main() {
 	api.Post("/files", handler.GetFiles)
 	api.Post("/get-file", handler.SendFile)
 	api.Post("/upload-file", handler.UploadFile)
+	api.Get("/folder/:folderName", handler.GetFolder)
 
 	log.Fatal(app.Listen(":3000"))
 }

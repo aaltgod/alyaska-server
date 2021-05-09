@@ -11,13 +11,9 @@ import (
 
 type File struct {
 	Name         string `json:"name"`
-	Path         string `json:"path"`
-	PreviousPath string `json:"previous_path"`
-	Dir          bool   `json:"dir"`
-}
-
-type ViewData struct {
-	Files []File
+	Path         string `json:"path,omitempty"`
+	PreviousPath string `json:"previous_path,omitempty"`
+	Dir          bool   `json:"dir,omitempty"`
 }
 
 func GetFiles(c *fiber.Ctx) error {
@@ -57,10 +53,10 @@ func GetFiles(c *fiber.Ctx) error {
 		prevPath = strings.Join(p[:len(p)-1], "/")
 	}
 
-	vd := new(ViewData)
+	files := []File{}
 
 	for _, file := range dirs {
-		vd.Files = append(vd.Files, File{
+		files = append(files, File{
 			Name:         file.Name(),
 			Dir:          file.IsDir(),
 			Path:         path + "/" + file.Name(),
@@ -69,7 +65,7 @@ func GetFiles(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"files": vd.Files,
+		"files": files,
 	})
 }
 
@@ -102,7 +98,7 @@ func UploadFile(c *fiber.Ctx) error {
 		return err
 	}
 
-	folderName := tools.GetRandomString(10)
+	folderName := tools.GetRandomString(6)
 	if err := os.Mkdir("uploads/"+folderName, 0755); err != nil {
 		log.Println(err)
 
@@ -110,7 +106,6 @@ func UploadFile(c *fiber.Ctx) error {
 	}
 
 	for key, file := range multiForm.File {
-
 		if err := c.SaveFile(file[0], "uploads/"+folderName+"/"+"file"+key); err != nil {
 			log.Println(err)
 
@@ -118,5 +113,41 @@ func UploadFile(c *fiber.Ctx) error {
 		}
 	}
 
-	return nil
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"folderName": folderName,
+		"folderPath": "uploads/" + folderName,
+	})
+}
+
+func GetFolder(c *fiber.Ctx) error {
+
+	folderName := c.Params("folderName")
+
+	file, err := os.Open("uploads/" + folderName)
+	if err != nil {
+		log.Println(err)
+
+		return err
+	}
+	defer file.Close()
+
+	dirs, err := file.Readdir(-1)
+	if err != nil {
+		log.Println(err)
+
+		return err
+	}
+
+	files := []File{}
+
+	for _, file := range dirs {
+		files = append(files, File{
+			Name: file.Name(),
+			Path: "uploads/" + folderName + "/" + file.Name(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"files": files,
+	})
 }
