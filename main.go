@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	handler "github.com/alyaskastorm/fiber_example/handler"
+	h "github.com/alyaskastorm/fiber_example/handler"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -19,11 +19,11 @@ func main() {
 
 	api := app.Group("/api")
 
-	api.Post("/random-string", handler.GetRandomResult)
-	api.Post("/files", handler.GetFiles)
-	api.Post("/get-file", handler.SendFile)
-	api.Post("/upload-file", handler.UploadFile)
-	api.Get("/folder/:folderName", handler.GetFolder)
+	api.Post("/random-string", h.GetRandomResult)
+	api.Post("/files", h.GetFiles)
+	api.Post("/get-file", h.SendFile)
+	api.Post("/upload-file", h.UploadFile)
+	api.Get("/folder/:folderName", h.GetFolder)
 
 	log.Fatal(app.Listen(":3000"))
 }

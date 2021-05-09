@@ -13,6 +13,7 @@
             <div class="large-12 medium-12 small-12 cell">
                 <button v-on:click="addFile()">Add Files</button>
             </div>
+            
             <br>
             <div class="large-12 medium-12 small-12 cell">
                 <button v-on:click="submitFile()">Submit</button>
