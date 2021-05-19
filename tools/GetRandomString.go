@@ -1,15 +1,24 @@
 package tools
 
-import "math/rand"
+import (
+	"math/rand"
+	"time"
+)
 
 func GetRandomString(strLen int) string {
 
+	rand.Seed(time.Now().UnixNano())
+
 	alph := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
-	s := make([]rune, strLen)
-	for i := range s {
-		s[i] = alph[rand.Intn(len(alph))]
+	result := make([]rune, strLen)
+	for i := range result {
+		result[i] = alph[rand.Intn(len(alph))]
 	}
 
-	return string(s)
+	for i := range result {
+		result[i] = alph[rand.Intn(len(result))]
+	}
+
+	return string(result)
 }
