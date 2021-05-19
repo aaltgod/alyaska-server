@@ -18,7 +18,7 @@
             <div class="large-12 medium-12 small-12 cell">
                 <button v-on:click="submitFile()">Submit</button>
             </div>
-            <h3><a href="">{{ folderName }}</a></h3>
+            <h3><a v-bind:href="'/folder/'+folderName">{{ folderName }}</a></h3>
         </div>
     </div>
 </template>
