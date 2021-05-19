@@ -98,12 +98,13 @@ func UploadFile(c *fiber.Ctx) error {
 		return err
 	}
 
-	for key, file := range multiForm.File {
-		if err := c.SaveFile(file[0], "uploads/"+folderName+"/"+"file"+key); err != nil {
+	for _, file := range multiForm.File {
+		if err := c.SaveFile(file[0], "uploads/"+folderName+"/"+file[0].Filename); err != nil {
 			log.Println(err)
 
 			return err
 		}
+
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
