@@ -19,7 +19,6 @@ func main() {
 
 	api := app.Group("/api")
 
-	api.Post("/random-string", handler.GetRandomResult)
 	api.Post("/files", handler.GetFiles)
 	api.Post("/get-file", handler.SendFile)
 	api.Post("/upload-file", handler.UploadFile)

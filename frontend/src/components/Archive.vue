@@ -36,15 +36,6 @@ export default {
   },
 
   methods: {
-    getRandomStr: function() {
-      var data = {}
-      axios.post(process.env.VUE_APP_API_URL+"/api/random-string", data).then(result => {
-        this.result = result.data['ex']
-      }).catch( error =>  {
-        console.error(error)
-      })
-    },
-
     getFilesData: function(filePath) {
       axios.post(
         process.env.VUE_APP_API_URL+"/api/files",

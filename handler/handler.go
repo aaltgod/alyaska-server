@@ -82,13 +82,6 @@ func SendFile(c *fiber.Ctx) error {
 	return c.Download(f.Path)
 }
 
-func GetRandomResult(c *fiber.Ctx) error {
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"success": true,
-		"string":  tools.GetRandomString(10),
-	})
-}
-
 func UploadFile(c *fiber.Ctx) error {
 
 	multiForm, err := c.MultipartForm()
