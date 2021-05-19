@@ -16,9 +16,5 @@ func GetRandomString(strLen int) string {
 		result[i] = alph[rand.Intn(len(alph))]
 	}
 
-	for i := range result {
-		result[i] = alph[rand.Intn(len(result))]
-	}
-
 	return string(result)
 }
