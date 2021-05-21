@@ -3,6 +3,8 @@ node_modules
 /dist
 
 
+src/assets/qrcodes/*
+
 # local env files
 .env.local
 .env.*.local
