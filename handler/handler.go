@@ -106,6 +106,14 @@ func UploadFile(c *fiber.Ctx) error {
 		}
 	}
 
+	//Generate a QR-code
+	err = tools.QRcode(folderName)
+	if err != nil {
+		log.Println(err)
+
+		return err
+	}
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"folderName": folderName,
 		"folderPath": "uploads/" + folderName,

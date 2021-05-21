@@ -32,7 +32,6 @@ import axios from 'axios'
                     process.env.VUE_APP_API_URL+"/api/folder/" + this.$route.params.folderName,
                 ).then(result => {
                     this.files = result.data["files"]
-                    console.log(this.files)
                 }).catch( error => {
                     console.error(error)
                 })
