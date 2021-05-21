@@ -43,6 +43,9 @@ import axios from 'axios'
             submitFile(){
                 let formData = new FormData()
 
+                if (this.files.length == 0) 
+                    return
+
                  for( var i = 0; i < this.files.length; i++ ){
                     let file = this.files[i]
 
