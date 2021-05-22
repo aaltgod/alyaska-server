@@ -9,6 +9,7 @@
             </button> 
           </h3>
         </div>
+        <img :src="require(`@/assets/qrcodes/${$route.params.folderName}.png`)" />
     </div>
 </template>
 

@@ -46,7 +46,7 @@ import axios from 'axios'
                 if (this.files.length == 0) 
                     return
 
-                 for( var i = 0; i < this.files.length; i++ ){
+                for( var i = 0; i < this.files.length; i++ ){
                     let file = this.files[i]
 
                     formData.append(i, file)
