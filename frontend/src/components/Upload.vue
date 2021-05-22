@@ -19,7 +19,6 @@
                 <button v-on:click="submitFile()">Submit</button>
             </div>
             <h3><a v-bind:href="'/folder/'+folderName">{{ folderName }}</a></h3>  
-            <img v-if="folderName" :src="require(`@/assets/qrcodes/${folderName}.png`)" />
         </div>
     </div>
 </template>
