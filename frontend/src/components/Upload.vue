@@ -18,7 +18,8 @@
             <div class="large-12 medium-12 small-12 cell">
                 <button v-on:click="submitFile()">Submit</button>
             </div>
-            <h3><a v-bind:href="'/folder/'+folderName">{{ folderName }}</a></h3>  
+            <h3><a v-bind:href="'/folder/'+folderName">{{ folderName }}</a></h3>
+            <h3><a v-if="filesSizeError">Files size > 250Mb</a></h3> 
         </div>
     </div>
 </template>
@@ -31,6 +32,7 @@ import axios from 'axios'
             return {
                 files:[],
                 folderName: "",
+                filesSizeError: false,
             }
         },
 
@@ -42,14 +44,25 @@ import axios from 'axios'
             submitFile(){
                 let formData = new FormData()
 
-                if (this.files.length == 0) 
+                if (this.files.length == 0) {
                     return
+                }
+
+                var filesSize = 0 
 
                 for( var i = 0; i < this.files.length; i++ ){
                     let file = this.files[i]
-
+                    
+                    filesSize += file.size
                     formData.append(i, file)
-                    }
+                }
+
+                this.filesSizeError = false
+
+                if (filesSize > 262144000) {
+                    this.filesSizeError = true
+                    return
+                }
 
                 axios.post(process.env.VUE_APP_API_URL+"/api/upload-file",
                 formData,
