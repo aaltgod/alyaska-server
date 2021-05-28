@@ -41,7 +41,7 @@ import axios from 'axios'
                 axios({
                     method: "post",
                     url: process.env.VUE_APP_API_URL+"/api/get-file",
-                    responseType: "arraybuffer",
+                    responseType: "blob",
                     data: {
                     "path": filePath,
                     }
